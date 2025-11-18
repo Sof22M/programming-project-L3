@@ -29,16 +29,29 @@
         }
 
         .container {
-            max-width: 900px;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            margin: 0 auto; /* Center the container horizontally */
+            max-width: fit-content; /* Only take as much width as needed */
+            background-color: rgba(0255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             margin-top: 50px;
         }
-        
-                header {
+
+        .container img {
+    width: 200px; /* Set fixed width */
+    height: 200px; /* Set fixed height */
+    object-fit: contain; /* Maintain aspect ratio without distortion */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+       
+         header {
             text-align: center;
             margin-bottom: 30px;
             padding: 30px;
@@ -134,6 +147,20 @@
             padding: 8px;
         }
 
+        .foot {
+            text-align: center;
+            font-size: 0.5 rem;
+            margin-bottom: 20px;
+            margin-left: 120px;
+            margin-right: 120px;
+            color: #ffffff;
+            font-weight: 300;
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            letter-spacing: 1px;
+        } 
+
         .menu-icon:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: #ffd700;
@@ -157,7 +184,7 @@
             position: absolute;
             top: 50px;
             right: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(145, 144, 144, 0.7);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
@@ -204,6 +231,8 @@
         #drop_down_menu li:not(:last-child) {
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+
      
  
   
@@ -218,8 +247,8 @@
         <div class="video-overlay"></div>
     </div>
 <header>
-        <h1> About the author and the sources </h1>
-        <p class="subtitle"> You can find here information about the used disctionnaries </p>
+        <h1> Additional information </h1>
+        <p class="subtitle"> Why was it created? What sources were used. </p>
 </header> 
 <nav>
         <div class="menu-icon">
@@ -228,11 +257,37 @@
             <span></span>
         </div>
         <ul id="drop_down_menu">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="game.html">Default Game</a></li>
-            <li><a href="yourgame.html">Your Game</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="game_animated_hiragana.html">Default Game</a></li>
+            <li><a href="your_game_animated_hiragana.html">Your Game</a></li>
             <li><a href="about.html">Find out more</a></li>
         </ul>
 </nav>
+<div class="container">
+     <p class="subtitle">This website was created as a part of a lesson on programming (SMD PSL Univerity).
+    </p>
+ </div>
+ <div class="container">
+     <p class="subtitle"> There exists many apps for learnign languages.
+    </p>
+ </div>
+    <div class="container">
+        <img src="memrise.png" alt="">
+        <img src="quizlet.png" alt="">
+    </div>
+<div class="container">
+     <p class="subtitle"> I am a fan of Memrise, but learning of Japanese, can resemble this: 
+    </p>
+</div>
+    <div class="container">
+        <img src="meme.tiff" alt="">
+    </div>
+<div class="container">
+     <p class="subtitle"> Therefore, I tried to come up with a funny source, where one can spend <br> more attention on individual characters, rather than entire words.
+    </p>
+    </div>
 </body>
 </html>
+ <footer>
+    <p class = "foot"> To create this website several sources were used, most images and videos were taken from Wikipedia and Youtube</p>
+ </footer> 
