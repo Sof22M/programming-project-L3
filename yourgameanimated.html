@@ -641,32 +641,31 @@
             wordData = [];
             
             lines.forEach(line => {
-                if (line.trim()) {
-                    const [english, reading, image] = line.split(';');
-                    
-                    if (english && reading && image && english.trim() !== '') {
-                        // Convert Japanese reading to hiragana array
-                        const hiragana = reading.trim().split('').filter(char => char !== ',');
-                        
-                        // Clean up image URL (remove Google redirect if present)
-                        let cleanImage = image.trim();
-                        if (cleanImage.includes('google.com/url?')) {
-                            // Extract actual image URL from Google redirect
-                            const urlMatch = cleanImage.match(/url=([^&]+)/);
-                            if (urlMatch) {
-                                cleanImage = decodeURIComponent(urlMatch[1]);
-                            }
-                        }
-                        
-                        wordData.push({
-                            english: english.trim(),
-                            japanese: reading.trim().split(',')[0], // Take first reading if multiple
-                            hiragana: hiragana,
-                            image: cleanImage
-                        });
-                    }
+    if (line.trim()) {
+        const [column1, column2, column3] = line.split(';');
+        
+        if (column1 && column2 && column3 && column1.trim() !== '') {
+            // Convert second column to hiragana array (always)
+            const hiragana = column2.trim().split('').filter(char => char !== ',');
+            
+            // Clean up image URL (remove Google redirect if present)
+            let cleanImage = column3.trim();
+            if (cleanImage.includes('google.com/url?')) {
+                const urlMatch = cleanImage.match(/url=([^&]+)/);
+                if (urlMatch) {
+                    cleanImage = decodeURIComponent(urlMatch[1]);
                 }
+            }
+            
+            wordData.push({
+                english: column1.trim(),
+                japanese: column2.trim().split(',')[0], // Take first reading if multiple
+                hiragana: hiragana,
+                image: cleanImage
             });
+        }
+    }
+});
             
             console.log('Loaded custom words:', wordData);
             
@@ -684,15 +683,19 @@
             currentWordElement.textContent = "Error loading custom CSV file";
         }
     }
+    function loadRandomWords(count) {
+        if (window.allWordsData && window.allWordsData.length > 0) {
+            randomWords = getRandomWords(window.allWordsData, count);
+            wordData = randomWords;
+            }
+        }
+        // Update max available count
+        maxAvailableElement.textContent = allWordsData.length;  
+        // Set max attribute for input
+        wordCountInput.max = allWordsData.length;
             
-            // Update max available count
-            maxAvailableElement.textContent = allWordsData.length;
-            
-            // Set max attribute for input
-            wordCountInput.max = allWordsData.length;
-            
-            // Load initial random words
-            loadRandomWords(selectedWordCount);
+        // Load initial random words
+        loadRandomWords(selectedWordCount);
             
         } catch (error) {
             console.error('Error loading CSV:', error);
