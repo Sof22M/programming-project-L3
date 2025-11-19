@@ -724,50 +724,6 @@
             currentWordElement.textContent = "Words loaded! Press Start to Play";
         }
     }
-
-    // Parse custom uploaded CSV
-    function parseCustomCSV(csvText) {
-        try {
-            // Reset game state
-            currentWordIndex = 0;
-            totalScore = 0;
-            currentRoundScore = 0;
-            roundScores = [];
-            scoreElement.textContent = totalScore;
-            
-            // Parse CSV data
-            const lines = csvText.split('\n').slice(1); // Skip header row
-            wordData = [];
-            
-            lines.forEach(line => {
-                if (line.trim()) {
-                    const [english, reading, image] = line.split(';');
-                    
-                    if (english && reading && image && english.trim() !== '') {
-                        // Convert Japanese reading to hiragana array
-                        const hiragana = reading.trim().split('').filter(char => char !== ',');
-                        
-                        // Clean up image URL (remove Google redirect if present)
-                        let cleanImage = image.trim();
-                        if (cleanImage.includes('google.com/url?')) {
-                            // Extract actual image URL from Google redirect
-                            const urlMatch = cleanImage.match(/url=([^&]+)/);
-                            if (urlMatch) {
-                                cleanImage = decodeURIComponent(urlMatch[1]);
-                            }
-                        }
-                        
-                        wordData.push({
-                            english: english.trim(),
-                            japanese: reading.trim().split(',')[0], // Take first reading if multiple
-                            hiragana: hiragana,
-                            image: cleanImage
-                        });
-                    }
-                }
-            });
-            
-            console.log('Loaded custom words:', wordData.length);
             
             // Calculate total hiragana characters
             calculateTotalHiragana();
