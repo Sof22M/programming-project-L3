@@ -627,15 +627,18 @@
         }, 0);
     }
 
-    // Load CSV data
-    async function loadCSVData() {
+    function parseCustomCSV(csvText) {
         try {
-            const response = await fetch('datasetjapanese.csv');
-            const csvText = await response.text();
+            // Reset game state
+            currentWordIndex = 0;
+            totalScore = 0;
+            currentRoundScore = 0;
+            roundScores = [];
+            scoreElement.textContent = totalScore;
             
             // Parse CSV data
             const lines = csvText.split('\n').slice(1); // Skip header row
-            allWordsData = [];
+            wordData = [];
             
             lines.forEach(line => {
                 if (line.trim()) {
@@ -655,7 +658,7 @@
                             }
                         }
                         
-                        allWordsData.push({
+                        wordData.push({
                             english: english.trim(),
                             japanese: reading.trim().split(',')[0], // Take first reading if multiple
                             hiragana: hiragana,
@@ -665,7 +668,22 @@
                 }
             });
             
-            console.log('Loaded all words:', allWordsData.length);
+            console.log('Loaded custom words:', wordData);
+            
+            if (wordData.length > 0) {
+                currentWordElement.textContent = "Custom words loaded! Press Start to Play";
+                wordCountElement.textContent = `1/${wordData.length}`;
+                // Reset the file input
+                csvUpload.value = '';
+            } else {
+                currentWordElement.textContent = "No valid words found in CSV";
+            }
+            
+        } catch (error) {
+            console.error('Error parsing custom CSV:', error);
+            currentWordElement.textContent = "Error loading custom CSV file";
+        }
+    }
             
             // Update max available count
             maxAvailableElement.textContent = allWordsData.length;
