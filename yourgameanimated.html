@@ -1114,8 +1114,7 @@
         checkCollision();
     });
 
-    // Initialize on load
-    window.addEventListener('load', async () => {
+    $window.addEventListener('load', async () => {
         currentWordElement.textContent = "Loading words from CSV...";
         currentWordElement.classList.add('start-message');
         
@@ -1123,10 +1122,12 @@
         
         if (wordData.length > 0) {
             currentWordElement.textContent = "Press Start to Play";
+            wordCountElement.textContent = `1/${wordData.length}`;
         } else {
             currentWordElement.textContent = "Failed to load words";
         }
     });
+        
 </script>
  
 </body>
