@@ -7,13 +7,11 @@
     <link rel="icon" type ="image/png" href="icon.jpg" />
     <style>
         
-        /* Video Background - Fixed behind everything */
-
         body {
         display: flex;
-        flex-direction: column; /* Stack items vertically */
-        align-items: center;    /* Center horizontally */
-        justify-content: flex-start; /* Start from top */
+        flex-direction: column; 
+        align-items: center;    
+        justify-content: flex-start; 
         min-height: 100vh;
         margin: 0;
         padding: 20px;
@@ -46,6 +44,7 @@
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
+        
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -103,13 +102,6 @@
     }
         }
 
-
-        Changesheader {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Navigation Styles */
         nav {
             position: fixed;
             top: 20px;
@@ -117,7 +109,6 @@
             z-index: 1000;
         }
 
-        /* Menu Icon (Hamburger) */
         .menu-icon {
             width: 40px;
             height: 40px;
@@ -134,7 +125,8 @@
             transition: all 0.3s ease;
             padding: 8px;
         }
-
+        
+        /*Hover gets an effect when mouse is interecting wiith the element*/
         .menu-icon:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: #ffd700;
@@ -153,7 +145,6 @@
             background: #ffed4e;
         }
 
-        /* Dropdown Menu - Hidden by default */
         #drop_down_menu {
             position: absolute;
             top: 50px;
@@ -171,14 +162,12 @@
             transition: all 0.3s ease;
         }
 
-        /* Show menu on hover */
         nav:hover #drop_down_menu {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
 
-        /* Menu Items */
         #drop_down_menu li {
             list-style: none;
             margin: 0;
@@ -201,7 +190,6 @@
             padding-left: 25px;
         }
 
-        /* Menu item separators */
         #drop_down_menu li:not(:last-child) {
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -255,7 +243,6 @@
             will-change: transform;
         }
          
-        /* Scroll to Top Button Styles - Invisible with White Arrow */
         .scroll-to-top {
             position: fixed;
             bottom: 30px;
@@ -354,23 +341,6 @@
             background: linear-gradient(to right, #667eea, #764ba2);
         }
         
-        .instructions {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        
-        .instructions h2 {
-            margin-bottom: 10px;
-            color: #ffcc00;
-        }
-        
-        .instructions p {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        
         .message {
             position: fixed;
             top: 50%;
@@ -414,7 +384,6 @@
             overflow: hidden;
         }
 
-        /* Word Count Selection */
         .word-count-selection {
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
@@ -503,7 +472,6 @@
             margin: 5px 0;
         }
         
-        /* Flashcard Styles */
         .flashcard-container {
             display: flex;
             flex-direction: column;
@@ -589,11 +557,9 @@
                 height: 200px;
             }
 
-            /* Add to your existing CSS */
             .hiragana {
-    /* ... existing hiragana styles ... */
     
-    /* Make hiragana more touch-friendly */
+    /* Adapting for mobile devices - touch friednly */
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
@@ -604,7 +570,6 @@
     font-size: 32px;
             }
 
-/* Improve touch experience on mobile */
             @media (max-width: 768px) {
     .hiragana {
         width: 60px;
@@ -620,7 +585,6 @@
         line-height: 50px;
     }
     
-    /* Make buttons more touch-friendly */
     button {
         padding: 15px 30px;
         font-size: 1.2rem;
@@ -645,7 +609,6 @@
 
 </head>
 <body>
-   <!-- Video Background -->
     <div class="video-background">
         <video autoplay muted loop id="bgVideo">
             <source src="videoshort.mp4" type="video/mp4">
@@ -670,17 +633,14 @@
         </ul>
 </nav> 
 <body>  
-        <!-- Word Count Selection -->
     <div class="word-count-selection">
         <h3>How many words would you like to practice?</h3>
         <div class="count-input-container">
             <input type="number" id="word-count-input" min="1" max="50" value="5" class="count-input">
             <button id="apply-count-btn" class="apply-count-btn">Apply</button>
         </div>
-        <p class="count-note">Enter any number between 1 and 50</p>
     </div>
 
-    <!-- CSV Upload Section -->
     <div class="controls">
         <button id="upload-btn">Upload Your CSV File</button>
         <input type="file" id="csv-upload" accept=".csv" style="display: none;">
@@ -695,10 +655,8 @@
             <div class="flashcard" id="flashcard">
                 <div class="flashcard-inner">
                     <div class="flashcard-front" id="flashcard-front">
-                        <!-- Japanese word will be displayed here -->
                     </div>
                     <div class="flashcard-back" id="flashcard-back">
-                        <!-- English word will be displayed here -->
                     </div>
                 </div>
             </div>
@@ -725,7 +683,6 @@
         </div>
         
         <div class="game-area" id="game-area">
-            <!-- Player and hiragana characters will be added here dynamically -->
         </div>
 
         <div class="controls">
@@ -752,7 +709,7 @@
     <button class="scroll-to-top" id="scrollToTopBtn">↑</button>
 
     <script>
-    // Game variables
+    // Game state variables
     let currentWordIndex = 0;
     let totalScore = 0;
     let currentRoundScore = 0;
@@ -766,7 +723,6 @@
     let hiraganaVelocities = [];
     let animationId = null;
     
-    // Flashcard variables
     let currentCardIndex = 0;
     let randomWords = [];
 
@@ -793,7 +749,6 @@
     const roundScoresList = document.getElementById('round-scores-list');
     const totalScoreElement = document.getElementById('total-score');
     
-    // Flashcard DOM elements
     const flashcard = document.getElementById('flashcard');
     const flashcardFront = document.getElementById('flashcard-front');
     const flashcardBack = document.getElementById('flashcard-back');
@@ -801,36 +756,46 @@
     const prevCardBtn = document.getElementById('prev-card');
     const nextCardBtn = document.getElementById('next-card');
 
-    // CSV Upload elements
     const csvUpload = document.getElementById('csv-upload');
     const uploadBtn = document.getElementById('upload-btn');
 
-    // Word count selection variables
     let selectedWordCount = 5; // Default
 
-    // Word Count Selection functionality
     const wordCountInput = document.getElementById('word-count-input');
     const applyCountBtn = document.getElementById('apply-count-btn');
     
+    // Utility Functions
+    function isTouchDevice() {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Event Listeners Setup
     applyCountBtn.addEventListener('click', () => {
         const count = parseInt(wordCountInput.value);
         
-        if (count >= 1 && count <= 50) {
+        if (count >= 1 && count <= window.allWordsData.length) {
             selectedWordCount = count;
             
-            // Reload words with new count
             if (window.allWordsData && window.allWordsData.length > 0) {
                 loadRandomWords(selectedWordCount);
             } else {
                 alert('Please upload a CSV file first');
             }
         } else {
-            alert('Please enter a number between 1 and 50');
-            wordCountInput.value = selectedWordCount; // Reset to previous value
+            const maxWords = window.allWordsData ? window.allWordsData.length : 50;
+            alert(`Please enter a number between 1 and ${maxWords}`);
+            wordCountInput.value = selectedWordCount;
         }
     });
 
-    // CSV Upload functionality
     uploadBtn.addEventListener('click', () => {
         csvUpload.click();
     });
@@ -846,34 +811,25 @@
             reader.readAsText(file);
         }
     });
-    // ... (keep all existing code above until the parseCustomCSV function)
 
-    // Parse custom uploaded CSV - handles any column names, assumes order: English, Japanese, Image
+    // CSV Parsing
     function parseCustomCSV(csvText) {
         try {
-            // Reset game state
             currentWordIndex = 0;
             totalScore = 0;
             currentRoundScore = 0;
             roundScores = [];
             scoreElement.textContent = totalScore;
             
-            // Parse CSV data - assume columns in order: English, Japanese, Image URL
             const lines = csvText.split('\n');
             const allWords = [];
             
-            // Check if we have a header row (assume first row is header)
             const hasHeader = lines.length > 0 && 
                              (lines[0].includes(';') || lines[0].includes(','));
             
-            // Determine delimiter (semicolon or comma)
             const firstLine = lines[hasHeader ? 0 : 1] || '';
             const delimiter = firstLine.includes(';') ? ';' : ',';
             
-            console.log('CSV detected delimiter:', delimiter);
-            console.log('CSV has header:', hasHeader);
-            
-            // Start from line 1 if header exists, otherwise from line 0
             const startLine = hasHeader ? 1 : 0;
             
             for (let i = startLine; i < lines.length; i++) {
@@ -882,19 +838,14 @@
                 
                 const columns = line.split(delimiter);
                 
-                // We need at least 3 columns: English, Japanese, Image
                 if (columns.length >= 3) {
                     const english = columns[0] ? columns[0].trim() : '';
                     const japanese = columns[1] ? columns[1].trim() : '';
                     const image = columns[2] ? columns[2].trim() : '';
                     
-                    // Basic validation - ensure we have English and Japanese content
                     if (english && japanese && english !== '' && japanese !== '') {
-                        // Convert Japanese reading to hiragana array
-                        // Remove any commas from Japanese reading and split into characters
                         const hiragana = japanese.replace(/,/g, '').split('').filter(char => char.trim() !== '');
                         
-                        // Clean up image URL (remove Google redirect if present)
                         let cleanImage = image;
                         if (cleanImage.includes('google.com/url?')) {
                             const urlMatch = cleanImage.match(/url=([^&]+)/);
@@ -903,7 +854,6 @@
                             }
                         }
                         
-                        // Take first Japanese reading if multiple are provided (comma-separated)
                         const primaryJapanese = japanese.split(',')[0].trim();
                         
                         allWords.push({
@@ -912,8 +862,6 @@
                             hiragana: hiragana,
                             image: cleanImage
                         });
-                        
-                        console.log(`Parsed word: "${english}" -> "${primaryJapanese}" -> [${hiragana.join(',')}]`);
                     } else {
                         console.warn('Skipping invalid row - missing English or Japanese:', columns);
                     }
@@ -922,21 +870,16 @@
                 }
             }
             
-            // Store all words globally
             window.allWordsData = allWords;
-            
             console.log('Successfully loaded custom words:', allWords.length);
             
             if (allWords.length > 0) {
-                // Update word count input max value
                 wordCountInput.max = allWords.length;
                 wordCountInput.value = Math.min(selectedWordCount, allWords.length);
                 
-                // Load initial random words
                 loadRandomWords(selectedWordCount);
                 
                 currentWordElement.textContent = `CSV loaded! ${allWords.length} words found. Press Start to Play`;
-                // Reset the file input
                 csvUpload.value = '';
             } else {
                 currentWordElement.textContent = "No valid words found in CSV. Please check the format.";
@@ -948,26 +891,21 @@
         }
     }
 
-    // New function to load random words with specified count
     function loadRandomWords(count) {
         if (window.allWordsData && window.allWordsData.length > 0) {
             randomWords = getRandomWords(window.allWordsData, count);
             wordData = randomWords;
             
-            // Update flashcards
             currentCardIndex = 0;
             updateFlashcard();
             
-            // Initialize flashcards with the loaded words
             initFlashcards();
             
-            // Update game display
             wordCountElement.textContent = `1`;
             totalWordsElement.textContent = wordData.length;
             currentWordElement.textContent = "Words updated! Press Start to Play";
             document.getElementById('total-cards').textContent = wordData.length;
             
-            // Calculate total hiragana characters
             calculateTotalHiragana();
             
             console.log(`Loaded ${count} random words:`, randomWords);
@@ -977,42 +915,29 @@
         }
     }
 
-    // Get random words from the dataset
     function getRandomWords(words, count) {
         const numCount = parseInt(count);
         const shuffled = [...words].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, numCount);
     }
 
-    // Initialize flashcards
+    // Flashcard System
     function initFlashcards() {
         if (randomWords.length === 0) {
             console.log('No words available for flashcards');
             return;
         }
         
-        console.log('Initializing flashcards with:', randomWords.length, 'words');
-        
         currentCardIndex = 0;
         updateFlashcard();
         
-        // Remove existing event listeners to prevent duplicates
-        flashcard.removeEventListener('click', flipCard);
-        prevCardBtn.removeEventListener('click', showPrevCard);
-        nextCardBtn.removeEventListener('click', showNextCard);
-        
-        // Add event listeners for flashcard navigation
         flashcard.addEventListener('click', flipCard);
         prevCardBtn.addEventListener('click', showPrevCard);
         nextCardBtn.addEventListener('click', showNextCard);
-        
-        console.log('Flashcard event listeners added');
     }
 
-    // Update flashcard content
     function updateFlashcard() {
         if (randomWords.length === 0) {
-            console.log('No words to display in flashcard');
             flashcardFront.textContent = "No words loaded";
             flashcardBack.textContent = "Upload a CSV file";
             cardIndexElement.textContent = "0";
@@ -1021,53 +946,37 @@
         }
         
         const currentWord = randomWords[currentCardIndex];
-        console.log('Updating flashcard to word:', currentWord);
-        
         flashcardFront.textContent = currentWord.japanese;
         flashcardBack.textContent = currentWord.english;
         cardIndexElement.textContent = currentCardIndex + 1;
         document.getElementById('total-cards').textContent = randomWords.length;
         
-        // Reset flip state
         flashcard.classList.remove('flipped');
-        
-        console.log('Flashcard updated:', currentWord.japanese, '->', currentWord.english);
     }
 
-    // Flip card
     function flipCard() {
-        console.log('Flipping card');
         flashcard.classList.toggle('flipped');
     }
 
-    // Show previous card
     function showPrevCard() {
-        console.log('Previous card button clicked');
         if (randomWords.length === 0) return;
-        
         currentCardIndex = (currentCardIndex - 1 + randomWords.length) % randomWords.length;
         updateFlashcard();
     }
 
-    // Show next card
     function showNextCard() {
-        console.log('Next card button clicked');
         if (randomWords.length === 0) return;
-        
         currentCardIndex = (currentCardIndex + 1) % randomWords.length;
         updateFlashcard();
     }
-            
-     
-    
-    // Function to calculate total hiragana characters
+
     function calculateTotalHiragana() {
         totalHiraganaCharacters = wordData.reduce((total, word) => {
             return total + word.hiragana.length;
         }, 0);
     }
 
-    // Initialize game
+    // Game Core Functions
     function initGame() {
         if (wordData.length === 0) {
             currentWordElement.textContent = "No words loaded! Please upload a CSV file first.";
@@ -1096,14 +1005,13 @@
         wordCountElement.textContent = currentWordIndex + 1;
         progressBar.style.width = `${(currentWordIndex / wordData.length) * 100}%`;
 
-        // UPDATE THE VARIABLE HERE
         currentWordHiraganaCount = currentWord.hiragana.length;
         
         // Create hiragana characters
         const correctHiragana = currentWord.hiragana;
         const allHiragana = [...correctHiragana];
         
-        // Add some random hiragana to make it challenging
+        // Add random hiragana to make it challenging
         const randomHiragana = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
         while (allHiragana.length < 12) {
             const randomChar = randomHiragana[Math.floor(Math.random() * randomHiragana.length)];
@@ -1112,17 +1020,15 @@
             }
         }
         
-        // Shuffle the hiragana
         shuffleArray(allHiragana);
         
-        // Position hiragana in the game area using grid system to prevent overlaps
+        // Position hiragana in the game area
         allHiragana.forEach((char, index) => {
             const hiraganaElement = document.createElement('div');
             hiraganaElement.className = 'hiragana';
             hiraganaElement.textContent = char;
             hiraganaElement.dataset.char = char;
 
-            // Calculate grid positions
             const gridCols = 4;
             const cellWidth = gameArea.offsetWidth / gridCols;
             const cellHeight = gameArea.offsetHeight / Math.ceil(allHiragana.length / gridCols);
@@ -1130,7 +1036,6 @@
             const row = Math.floor(index / gridCols);
             const col = index % gridCols;
         
-            // Position within grid cell with some randomness
             const x = 30 + (col * cellWidth) + Math.random() * (cellWidth - 100);
             const y = 30 + (row * cellHeight) + Math.random() * (cellHeight - 100);
 
@@ -1140,315 +1045,42 @@
             gameArea.appendChild(hiraganaElement);
             hiraganaElements.push(hiraganaElement);
             
-            // Initialize random velocity for chaotic movement
             hiraganaVelocities.push({
                 x: (Math.random() - 0.5) * 1.2,
                 y: (Math.random() - 0.5) * 1.2
             });
         });
+        
+        // Add touch listeners only for mobile devices
+        addTouchListeners();
+        
         gameActive = true;
         
-        // Start the animation loop for hiragana movement
         if (animationId) {
             cancelAnimationFrame(animationId);
         }
         animateHiragana();
     }
 
-    // Shuffle array function
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    // Animate hiragana with chaotic movement
-    function animateHiragana() {
-        if (!gameActive) return;
-        
-        hiraganaElements.forEach((hiragana, index) => {
-            if (hiragana.classList.contains('correct') || hiragana.classList.contains('incorrect')) {
-                return;
-            }
-            
-            const rect = hiragana.getBoundingClientRect();
-            const gameRect = gameArea.getBoundingClientRect();
-            
-            // Update position based on velocity
-            let x = parseFloat(hiragana.style.left) + hiraganaVelocities[index].x;
-            let y = parseFloat(hiragana.style.top) + hiraganaVelocities[index].y;
-            
-            // Bounce off walls
-            if (x <= 0 || x >= gameArea.offsetWidth - rect.width) {
-                hiraganaVelocities[index].x *= -1.1;
-                x = Math.max(0, Math.min(x, gameArea.offsetWidth - rect.width));
-            }
-            
-            if (y <= 0 || y >= gameArea.offsetHeight - rect.height) {
-                hiraganaVelocities[index].y *= -1.1;
-                y = Math.max(0, Math.min(y, gameArea.offsetHeight - rect.height));
-            }
-            
-            // Occasionally change direction for more chaotic movement
-            if (Math.random() < 0.05) {
-                hiraganaVelocities[index].x = (Math.random() - 0.5) * 6;
-                hiraganaVelocities[index].y = (Math.random() - 0.5) * 6;
-            }
-            
-            hiragana.style.left = x + 'px';
-            hiragana.style.top = y + 'px';
-        });
-        
-        animationId = requestAnimationFrame(animateHiragana);
-    }
-
-    // Check collision between player and hiragana
-    function checkCollision() {
-        const player = document.getElementById('player');
-        const playerRect = player.getBoundingClientRect();
-        
-        hiraganaElements.forEach(hiragana => {
-            if (hiragana.classList.contains('correct') || hiragana.classList.contains('incorrect')) {
-                return;
-            }
-            
-            const hiraganaRect = hiragana.getBoundingClientRect();
-            
-            if (
-                playerRect.left < hiraganaRect.right &&
-                playerRect.right > hiraganaRect.left &&
-                playerRect.top < hiraganaRect.bottom &&
-                playerRect.bottom > hiraganaRect.top
-            ) {
-                const char = hiragana.dataset.char;
-                const correctHiragana = wordData[currentWordIndex].hiragana;
-                const expectedChar = correctHiragana[currentCharacterIndex];
-                
-                if (char === expectedChar) {
-                    hiragana.classList.add('correct');
-                    collectedHiragana.push(char);
-                    currentCharacterIndex++;
-                    currentRoundScore += 10;
-                    totalScore += 10;
-                    scoreElement.textContent = totalScore;
-                    
-                    updateNextCharacterHighlight();
-                    
-                    if (collectedHiragana.length === correctHiragana.length) {
-                        showMessage(true);
-                    }
-                } else {
-                    hiragana.classList.add('incorrect');
-                    currentRoundScore = Math.max(0, currentRoundScore - 5);
-                    totalScore = Math.max(0, totalScore - 5);
-                    scoreElement.textContent = totalScore;
-                    
-                    setTimeout(() => {
-                        hiragana.classList.remove('incorrect');
-                    }, 1000);
-                }
-            }
-        });
-    }
-
-    // Update highlighting for the next correct character
-    function updateNextCharacterHighlight() {
-        const correctHiragana = wordData[currentWordIndex].hiragana;
-        
-        hiraganaElements.forEach(hiragana => {
-            hiragana.classList.remove('next-correct');
-        });
-        
-        if (currentCharacterIndex < correctHiragana.length) {
-            const nextChar = correctHiragana[currentCharacterIndex];
-            hiraganaElements.forEach(hiragana => {
-                if (hiragana.dataset.char === nextChar && !hiragana.classList.contains('correct')) {
-                    hiragana.classList.add('next-correct');
-                }
-            });
-        }
-    }
-
-    // Show message when word is completed
-    function showMessage(isCorrect) {
-        gameActive = false;
-        cancelAnimationFrame(animationId);
-        message.style.display = 'block';
-        
-        if (isCorrect) {
-            messageTitle.textContent = "Correct!";
-            messageTitle.style.color = "#4CAF50";
-            roundScores[currentWordIndex] = currentRoundScore;
-        }
-        
-        const currentWord = wordData[currentWordIndex];
-        messageImage.src = currentWord.image;
-        messageImage.alt = currentWord.english;
-        englishWordElement.textContent = currentWord.english;
-        japaneseWordElement.textContent = currentWord.japanese;
-        roundScoreElement.textContent = currentRoundScore;
-    }
-
-    // Move to next word
-    function nextWord() {
-        currentWordIndex++;
-        if (currentWordIndex < wordData.length) {
-            message.style.display = 'none';
-            initGame();
-        } else {
-            // Game completed - show win message
-            if 
-               (totalScore >= 0.5*totalHiraganaCharacters*10)
-               { messageTitle.textContent = "Good job";
-                 messageTitle.style.color = "#ffcc00";
-                 messageImage.src = "https://media.istockphoto.com/id/2157551537/fr/photo/coupe-des-vainqueurs-symbolisant-la-victoire-et-le-succès-dans-les-compétitions-premier-prix.jpg?s=612x612&w=0&k=20&c=3UQ0awITKwRTsH249oCwBpJcxJjb1uf2DRjleGens0k=";
-                 englishWordElement.textContent = "Congratulations!";
-                 japaneseWordElement.textContent = "おめでとう!";
-                 roundScoreElement.textContent = currentRoundScore;
-                 roundScoresContainer.style.display = 'block';
-                 roundScoresList.innerHTML = '';
-                 roundScores.forEach((score, index) => {
-                 const scoreItem = document.createElement('div');
-                 scoreItem.className = 'round-score-item';
-                 scoreItem.innerHTML = `
-                    <span>Round ${index + 1}: ${wordData[index].english}</span>
-                    <span>${score} points</span>
-                `;
-                roundScoresList.appendChild(scoreItem);
-            });
-            totalScoreElement.textContent = totalScore;
-
-            }   
-            else {  
-             messageTitle.textContent = "Still need to practice";
-             messageImage.src = "https://img-cdn.inc.com/image/upload/f_webp,c_fit,w_1920,q_auto/images/panoramic/getty_133970892_157811.jpg";
-             messageTitle.style.color = "#ffcc00";
-             roundScoreElement.textContent = currentRoundScore;
-             roundScoresContainer.style.display = 'block';
-             roundScoresList.innerHTML = '';
-             roundScores.forEach((score, index) => {
-                const scoreItem = document.createElement('div');
-                scoreItem.className = 'round-score-item';
-                scoreItem.innerHTML = `
-                    <span>Round ${index + 1}: ${wordData[index].english}</span>
-                    <span>${score} points</span>
-                `;
-                roundScoresList.appendChild(scoreItem);
-            });
-            totalScoreElement.textContent = totalScore;
-            } 
-
-            nextBtn.textContent = "Start again";
-            nextBtn.onclick = () => {
-                location.reload(); // Reload the page to get new random words
-            };
-        }
-    }
-
-    // Event listeners
-    startBtn.addEventListener('click', () => {
-        if (!gameActive && wordData.length > 0) {
-            initGame();
-        }
-    });
-
-    resetBtn.addEventListener('click', () => {
-        currentWordIndex = 0;
-        totalScore = 0;
-        currentRoundScore = 0;
-        wordCountElement.textContent = 1; // Explicitly set to 1
-        roundScores = [];
-        scoreElement.textContent = totalScore;
-        roundScoresContainer.style.display = 'none';
-        message.style.display = 'none';
-        initGame();
-        
-    });
-
-    nextBtn.addEventListener('click', nextWord);
-
-    // Keyboard controls - prevent default behavior for arrow keys
-    document.addEventListener('keydown', (e) => {
-        if (!gameActive) return;
-        
-        // Prevent default behavior for arrow keys to avoid scrolling
-        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-            e.preventDefault();
-        }
-        
-        const player = document.getElementById('player');
-        const step = 30;
-        
-        switch(e.key) {
-            case 'ArrowUp':
-                playerPosition.y = Math.max(20, playerPosition.y - step);
-                break;
-            case 'ArrowDown':
-                playerPosition.y = Math.min(gameArea.offsetHeight - 30, playerPosition.y + step);
-                break;
-            case 'ArrowLeft':
-                playerPosition.x = Math.max(20, playerPosition.x - step);
-                break;
-            case 'ArrowRight':
-                playerPosition.x = Math.min(gameArea.offsetWidth - 30, playerPosition.x + step);
-                break;
-        }
-        
-        player.style.left = playerPosition.x + 'px';
-        player.style.top = playerPosition.y + 'px';
-        
-        checkCollision();
-    });
-
-    // Initialize on load
-    window.addEventListener('load', async () => {
-        currentWordElement.textContent = "Please upload a CSV file to start";
-        currentWordElement.classList.add('start-message');
-        
-        // No automatic CSV loading - wait for user upload
-    });
-
-    // Add this JavaScript for the scroll-to-top functionality
-    // Scroll to Top functionality
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
-    // Show/hide the button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollToTopBtn.style.display = 'block';
-        } else {
-            scrollToTopBtn.style.display = 'none';
-        }
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    // ... (keep all existing code above)
-
-    // Add touch event listeners for hiragana elements
     function addTouchListeners() {
+        if (!isTouchDevice()) return;
+        
         hiraganaElements.forEach(hiragana => {
-            // Remove any existing touch listeners to prevent duplicates
             hiragana.removeEventListener('touchstart', handleHiraganaTouch);
             hiragana.addEventListener('touchstart', handleHiraganaTouch, { passive: false });
         });
     }
 
-    // Handle touch events on hiragana
     function handleHiraganaTouch(e) {
         if (!gameActive) return;
         
-        e.preventDefault(); // Prevent default touch behavior
-        e.stopPropagation(); // Prevent event bubbling
+        e.preventDefault();
+        e.stopPropagation();
         
-        const hiragana = e.currentTarget;
-        
+        handleHiraganaInteraction(e.currentTarget);
+    }
+
+    function handleHiraganaInteraction(hiragana) {
         if (hiragana.classList.contains('correct') || hiragana.classList.contains('incorrect')) {
             return;
         }
@@ -1482,99 +1114,219 @@
         }
     }
 
-    // Update the initGame function to add touch listeners
-    function initGame() {
-        if (wordData.length === 0) {
-            currentWordElement.textContent = "No words loaded! Please upload a CSV file first.";
-            return;
-        }
+    function animateHiragana() {
+        if (!gameActive) return;
         
-        gameArea.innerHTML = '';
-        collectedHiragana = [];
-        hiraganaElements = [];
-        hiraganaVelocities = [];
-        currentCharacterIndex = 0;
-        currentRoundScore = 0;
-        
-        // Create player
-        const player = document.createElement('div');
-        player.className = 'player';
-        player.id = 'player';
-        player.innerHTML = '★';
-        player.style.left = playerPosition.x + 'px';
-        player.style.top = playerPosition.y + 'px';
-        gameArea.appendChild(player);
-        
-        // Set current word
-        const currentWord = wordData[currentWordIndex];
-        currentWordElement.textContent = currentWord.english;
-        wordCountElement.textContent = currentWordIndex + 1;
-        progressBar.style.width = `${(currentWordIndex / wordData.length) * 100}%`;
-
-        // UPDATE THE VARIABLE HERE
-        currentWordHiraganaCount = currentWord.hiragana.length;
-        
-        // Create hiragana characters
-        const correctHiragana = currentWord.hiragana;
-        const allHiragana = [...correctHiragana];
-        
-        // Add some random hiragana to make it challenging
-        const randomHiragana = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
-        while (allHiragana.length < 12) {
-            const randomChar = randomHiragana[Math.floor(Math.random() * randomHiragana.length)];
-            if (!allHiragana.includes(randomChar)) {
-                allHiragana.push(randomChar);
+        hiraganaElements.forEach((hiragana, index) => {
+            if (hiragana.classList.contains('correct') || hiragana.classList.contains('incorrect')) {
+                return;
             }
-        }
-        
-        // Shuffle the hiragana
-        shuffleArray(allHiragana);
-        
-        // Position hiragana in the game area using grid system to prevent overlaps
-        allHiragana.forEach((char, index) => {
-            const hiraganaElement = document.createElement('div');
-            hiraganaElement.className = 'hiragana';
-            hiraganaElement.textContent = char;
-            hiraganaElement.dataset.char = char;
-
-            // Calculate grid positions
-            const gridCols = 4;
-            const cellWidth = gameArea.offsetWidth / gridCols;
-            const cellHeight = gameArea.offsetHeight / Math.ceil(allHiragana.length / gridCols);
-
-            const row = Math.floor(index / gridCols);
-            const col = index % gridCols;
-        
-            // Position within grid cell with some randomness
-            const x = 30 + (col * cellWidth) + Math.random() * (cellWidth - 100);
-            const y = 30 + (row * cellHeight) + Math.random() * (cellHeight - 100);
-
-            hiraganaElement.style.left = x + 'px';
-            hiraganaElement.style.top = y + 'px';
-
-            gameArea.appendChild(hiraganaElement);
-            hiraganaElements.push(hiraganaElement);
             
-            // Initialize random velocity for chaotic movement
-            hiraganaVelocities.push({
-                x: (Math.random() - 0.5) * 1.2,
-                y: (Math.random() - 0.5) * 1.2
-            });
+            const rect = hiragana.getBoundingClientRect();
+            
+            let x = parseFloat(hiragana.style.left) + hiraganaVelocities[index].x;
+            let y = parseFloat(hiragana.style.top) + hiraganaVelocities[index].y;
+            
+            if (x <= 0 || x >= gameArea.offsetWidth - rect.width) {
+                hiraganaVelocities[index].x *= -1.1;
+                x = Math.max(0, Math.min(x, gameArea.offsetWidth - rect.width));
+            }
+            
+            if (y <= 0 || y >= gameArea.offsetHeight - rect.height) {
+                hiraganaVelocities[index].y *= -1.1;
+                y = Math.max(0, Math.min(y, gameArea.offsetHeight - rect.height));
+            }
+            
+            if (Math.random() < 0.05) {
+                hiraganaVelocities[index].x = (Math.random() - 0.5) * 6;
+                hiraganaVelocities[index].y = (Math.random() - 0.5) * 6;
+            }
+            
+            hiragana.style.left = x + 'px';
+            hiragana.style.top = y + 'px';
         });
         
-        // Add touch listeners for mobile devices
-        addTouchListeners();
-        
-        gameActive = true;
-        
-        // Start the animation loop for hiragana movement
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-        }
-        animateHiragana();
+        animationId = requestAnimationFrame(animateHiragana);
     }
 
+    function checkCollision() {
+        if (isTouchDevice()) return;
+        
+        const player = document.getElementById('player');
+        const playerRect = player.getBoundingClientRect();
+        
+        hiraganaElements.forEach(hiragana => {
+            if (hiragana.classList.contains('correct') || hiragana.classList.contains('incorrect')) {
+                return;
+            }
+            
+            const hiraganaRect = hiragana.getBoundingClientRect();
+            
+            if (
+                playerRect.left < hiraganaRect.right &&
+                playerRect.right > hiraganaRect.left &&
+                playerRect.top < hiraganaRect.bottom &&
+                playerRect.bottom > hiraganaRect.top
+            ) {
+                handleHiraganaInteraction(hiragana);
+            }
+        });
+    }
+
+    function updateNextCharacterHighlight() {
+        const correctHiragana = wordData[currentWordIndex].hiragana;
+        
+        hiraganaElements.forEach(hiragana => {
+            hiragana.classList.remove('next-correct');
+        });
+        
+        if (currentCharacterIndex < correctHiragana.length) {
+            const nextChar = correctHiragana[currentCharacterIndex];
+            hiraganaElements.forEach(hiragana => {
+                if (hiragana.dataset.char === nextChar && !hiragana.classList.contains('correct')) {
+                    hiragana.classList.add('next-correct');
+                }
+            });
+        }
+    }
+
+    function showMessage(isCorrect) {
+        gameActive = false;
+        cancelAnimationFrame(animationId);
+        message.style.display = 'block';
+        
+        if (isCorrect) {
+            messageTitle.textContent = "Correct!";
+            messageTitle.style.color = "#4CAF50";
+            roundScores[currentWordIndex] = currentRoundScore;
+        }
+        
+        const currentWord = wordData[currentWordIndex];
+        messageImage.src = currentWord.image;
+        messageImage.alt = currentWord.english;
+        englishWordElement.textContent = currentWord.english;
+        japaneseWordElement.textContent = currentWord.japanese;
+        roundScoreElement.textContent = currentRoundScore;
+    }
+
+    function nextWord() {
+        currentWordIndex++;
+        if (currentWordIndex < wordData.length) {
+            message.style.display = 'none';
+            initGame();
+        } else {
+            if (totalScore >= 0.7 * totalHiraganaCharacters * 10) {
+                messageTitle.textContent = "Good job";
+                messageTitle.style.color = "#ffcc00";
+                messageImage.src = "https://media.istockphoto.com/id/2157551537/fr/photo/coupe-des-vainqueurs-symbolisant-la-victoire-et-le-succès-dans-les-compétitions-premier-prix.jpg?s=612x612&w=0&k=20&c=3UQ0awITKwRTsH249oCwBpJcxJjb1uf2DRjleGens0k=";
+                englishWordElement.textContent = "Congratulations!";
+                japaneseWordElement.textContent = "おめでとう!";
+            } else {
+                messageTitle.textContent = "Still need to practice";
+                messageImage.src = "https://img-cdn.inc.com/image/upload/f_webp,c_fit,w_1920,q_auto/images/panoramic/getty_133970892_157811.jpg";
+                messageTitle.style.color = "#ffcc00";
+            }
+            
+            roundScoreElement.textContent = currentRoundScore;
+            roundScoresContainer.style.display = 'block';
+            roundScoresList.innerHTML = '';
+            
+            roundScores.forEach((score, index) => {
+                const scoreItem = document.createElement('div');
+                scoreItem.className = 'round-score-item';
+                scoreItem.innerHTML = `
+                    <span>Round ${index + 1}: ${wordData[index].english}</span>
+                    <span>${score} points</span>
+                `;
+                roundScoresList.appendChild(scoreItem);
+            });
+            
+            totalScoreElement.textContent = totalScore;
+            nextBtn.textContent = "Start again";
+            nextBtn.onclick = () => {
+                location.reload();
+            };
+        }
+    }
+
+    // Event Listeners
+    startBtn.addEventListener('click', () => {
+        if (!gameActive && wordData.length > 0) {
+            initGame();
+        }
+    });
+
+    resetBtn.addEventListener('click', () => {
+        currentWordIndex = 0;
+        totalScore = 0;
+        currentRoundScore = 0;
+        wordCountElement.textContent = 1;
+        roundScores = [];
+        scoreElement.textContent = totalScore;
+        roundScoresContainer.style.display = 'none';
+        message.style.display = 'none';
+        initGame();
+    });
+
+    nextBtn.addEventListener('click', nextWord);
+
+    document.addEventListener('keydown', (e) => {
+        if (!gameActive) return;
+        
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            e.preventDefault();
+        }
+        
+        const player = document.getElementById('player');
+        const step = 30;
+        
+        switch(e.key) {
+            case 'ArrowUp':
+                playerPosition.y = Math.max(20, playerPosition.y - step);
+                break;
+            case 'ArrowDown':
+                playerPosition.y = Math.min(gameArea.offsetHeight - 30, playerPosition.y + step);
+                break;
+            case 'ArrowLeft':
+                playerPosition.x = Math.max(20, playerPosition.x - step);
+                break;
+            case 'ArrowRight':
+                playerPosition.x = Math.min(gameArea.offsetWidth - 30, playerPosition.x + step);
+                break;
+        }
+        
+        player.style.left = playerPosition.x + 'px';
+        player.style.top = playerPosition.y + 'px';
+        
+        checkCollision();
+    });
+
+    // Scroll to Top functionality
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.style.display = 'block';
+        } else {
+            scrollToTopBtn.style.display = 'none';
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+        currentWordElement.textContent = "Please upload a CSV file to start";
+        currentWordElement.classList.add('start-message');
+    });
+
 </script>
+
 
 </body>
 </html>
