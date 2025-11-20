@@ -1027,6 +1027,7 @@
                 y: (Math.random() - 0.5) * 1.2
             });
         });
+        addTouchListeners();
         gameActive = true;
         
         // Start the animation loop for hiragana movement
@@ -1367,98 +1368,6 @@
                 hiragana.classList.remove('incorrect');
             }, 1000);
         }
-    }
-
-    // Update the initGame function to add touch listeners
-    function initGame() {
-        if (wordData.length === 0) {
-            currentWordElement.textContent = "No words loaded! Please upload a CSV file first.";
-            return;
-        }
-        
-        gameArea.innerHTML = '';
-        collectedHiragana = [];
-        hiraganaElements = [];
-        hiraganaVelocities = [];
-        currentCharacterIndex = 0;
-        currentRoundScore = 0;
-        
-        // Create player
-        const player = document.createElement('div');
-        player.className = 'player';
-        player.id = 'player';
-        player.innerHTML = '★';
-        player.style.left = playerPosition.x + 'px';
-        player.style.top = playerPosition.y + 'px';
-        gameArea.appendChild(player);
-        
-        // Set current word
-        const currentWord = wordData[currentWordIndex];
-        currentWordElement.textContent = currentWord.english;
-        wordCountElement.textContent = currentWordIndex + 1;
-        progressBar.style.width = `${(currentWordIndex / wordData.length) * 100}%`;
-
-        // UPDATE THE VARIABLE HERE
-        currentWordHiraganaCount = currentWord.hiragana.length;
-        
-        // Create hiragana characters
-        const correctHiragana = currentWord.hiragana;
-        const allHiragana = [...correctHiragana];
-        
-        // Add some random hiragana to make it challenging
-        const randomHiragana = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
-        while (allHiragana.length < 12) {
-            const randomChar = randomHiragana[Math.floor(Math.random() * randomHiragana.length)];
-            if (!allHiragana.includes(randomChar)) {
-                allHiragana.push(randomChar);
-            }
-        }
-        
-        // Shuffle the hiragana
-        shuffleArray(allHiragana);
-        
-        // Position hiragana in the game area using grid system to prevent overlaps
-        allHiragana.forEach((char, index) => {
-            const hiraganaElement = document.createElement('div');
-            hiraganaElement.className = 'hiragana';
-            hiraganaElement.textContent = char;
-            hiraganaElement.dataset.char = char;
-
-            // Calculate grid positions
-            const gridCols = 4;
-            const cellWidth = gameArea.offsetWidth / gridCols;
-            const cellHeight = gameArea.offsetHeight / Math.ceil(allHiragana.length / gridCols);
-
-            const row = Math.floor(index / gridCols);
-            const col = index % gridCols;
-        
-            // Position within grid cell with some randomness
-            const x = 30 + (col * cellWidth) + Math.random() * (cellWidth - 100);
-            const y = 30 + (row * cellHeight) + Math.random() * (cellHeight - 100);
-
-            hiraganaElement.style.left = x + 'px';
-            hiraganaElement.style.top = y + 'px';
-
-            gameArea.appendChild(hiraganaElement);
-            hiraganaElements.push(hiraganaElement);
-            
-            // Initialize random velocity for chaotic movement
-            hiraganaVelocities.push({
-                x: (Math.random() - 0.5) * 1.2,
-                y: (Math.random() - 0.5) * 1.2
-            });
-        });
-        
-        // Add touch listeners for mobile devices
-        addTouchListeners();
-        
-        gameActive = true;
-        
-        // Start the animation loop for hiragana movement
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-        }
-        animateHiragana();
     }
 
 
