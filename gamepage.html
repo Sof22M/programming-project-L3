@@ -698,7 +698,7 @@
                 <div class="progress">
                     <div class="progress-bar" id="progress-bar"></div>
                 </div>
-                <div class="word-counter">Word <span id="word-count">1</span>/5</div>
+                <div class="word-counter">Word <span id="word-count">0</span>/<span id="total-words">0</span></div>
             </div>
         </div>
         
@@ -764,6 +764,7 @@
     const roundScoresContainer = document.getElementById('round-scores-container');
     const roundScoresList = document.getElementById('round-scores-list');
     const totalScoreElement = document.getElementById('total-score');
+    const totalWordsElement = document.getElementById('total-words');
     
     // Flashcard DOM elements
     const flashcard = document.getElementById('flashcard');
@@ -783,7 +784,7 @@
     applyCountBtn.addEventListener('click', () => {
         const count = parseInt(wordCountInput.value);
         
-        if (count >= 1 && count <= 50) {
+        if (count >= 1 && count <= 19) {
             selectedWordCount = count;
             
             // Reload words with new count
@@ -791,7 +792,7 @@
                 loadRandomWords(selectedWordCount);
             }
         } else {
-            alert('Please enter a number between 1 and 50');
+            alert('Please enter a number between 1 and 19');
             wordCountInput.value = selectedWordCount; // Reset to previous value
         }
     });
@@ -814,7 +815,8 @@
             updateFlashcard();
             
             // Update game display
-            wordCountElement.textContent = `1/${wordData.length}`;
+            totalWordsElement.textContent = wordData.length;
+            wordCountElement.textContent = `0/${wordData.length}`;
             currentWordElement.textContent = "Words updated! Press Start to Play";
             document.getElementById('total-cards').textContent = wordData.length;
             console.log('Total cards element:', document.getElementById('total-cards'));
@@ -871,6 +873,7 @@
             const initialCount = parseInt(wordCountInput.value) || 5;
             randomWords = getRandomWords(allWords, initialCount);
             wordData = randomWords;
+            totalWordsElement.textContent = wordData.length;
             
             console.log('Selected random words:', randomWords);
             
@@ -958,7 +961,7 @@
         // Set current word
         const currentWord = wordData[currentWordIndex];
         currentWordElement.textContent = currentWord.english;
-        wordCountElement.textContent = currentWordIndex + 1;
+        wordCountElement.textContent = `${currentWordIndex + 1}/${wordData.length}`;
         progressBar.style.width = `${(currentWordIndex / wordData.length) * 100}%`;
 
         // UPDATE THE VARIABLE HERE
@@ -1165,7 +1168,7 @@
         messageImage.alt = currentWord.english;
         englishWordElement.textContent = currentWord.english;
         japaneseWordElement.textContent = currentWord.japanese;
-        roundScoreElement.textContent = currentRoundScore;
+        totalScoreElement.textContent = totalScore;
     }
 
     // Move to next word
@@ -1240,6 +1243,7 @@
         scoreElement.textContent = totalScore;
         roundScoresContainer.style.display = 'none';
         message.style.display = 'none';
+        totalWordsElement.textContent = wordData.length;
         initGame();
         
     });
